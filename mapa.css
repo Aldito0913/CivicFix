@@ -1,0 +1,229 @@
+/* ----------------- ANIMACIÓN DEL MARCADOR ----------------- */
+.marker-animation {
+    animation: markerBounce 1s ease-in-out forwards;
+    animation: fondoMovimiento 12s ease-in-out infinite;
+
+}
+
+@keyframes markerBounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.5); }
+    100% { transform: scale(1); }
+}
+
+/* ----------------- ANIMACIÓN DE FONDO ----------------- */
+@keyframes fondoMovimiento {
+    0% { background-position: center top; }
+    50% { background-position: center 60px; }
+    100% { background-position: center top; }
+}
+/* ----------------- ESTILOS GENERALES ----------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('Fondos/fondo.png') no-repeat center top fixed;
+    background-size: cover;
+    color: #f1f1f1;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    animation: fondoMovimiento 12s ease-in-out infinite; /* velocidad ajustada */
+}
+
+/* Capa oscura sobre el fondo para mayor contraste */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+}
+
+/* ----------------- TÍTULO ----------------- */
+h1 {
+    background-color: #111;
+    color: #fff;
+    padding: 24px 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    border-bottom: 2px solid #444;
+    text-transform: uppercase;
+}
+
+/* ----------------- MAPA ----------------- */
+#map {
+    height: 70vh;
+    width: 90%;
+    max-width: 1400px;
+    margin: 40px auto;
+    border-radius: 14px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+/* ----------------- FORMULARIO ----------------- */
+.form-container {
+    background: rgba(20, 20, 20, 0.9);
+    padding: 30px 20px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    margin: 30px auto;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Título del formulario */
+.form-container h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #eee;
+}
+
+/* Inputs y botones */
+input, button {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 10px;
+    font-size: 16px;
+    border: 1px solid #444;
+    background-color: #1a1a1a;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+/* Inputs específicos */
+input[type="text"], input[type="file"] {
+    background-color: #222;
+}
+
+input:focus, button:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+/* ----------------- BOTONES ----------------- */
+button {
+    background-color: #e74c3c;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* ----------------- BOTÓN HOME ----------------- */
+#homeBtn {
+    width: 180px;
+    margin: 20px auto;
+    background-color: #2980b9;
+    display: block;
+}
+
+#homeBtn:hover {
+    background-color: #2471a3;
+}
+
+#homeBtn:active {
+    background-color: #1f6390;
+}
+
+/* ----------------- RESPONSIVE ----------------- */
+
+/* Pantallas pequeñas (tablets y teléfonos en modo vertical) */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    #map {
+        height: 60vh;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}
+
+/* Pantallas pequeñas (móviles en modo retrato) */
+@media screen and (max-width: 480px) and (orientation: portrait) {
+    h1 {
+        font-size: 22px;
+    }
+
+    .form-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    #map {
+        height: 50vh;
+    }
+}
+
+/* Pantallas pequeñas en modo horizontal */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    #map {
+        height: 50vh; /* Aumenta la altura en modo horizontal */
+    }
+
+    .form-container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+}
+
+/* Pantallas grandes (PC y laptops de 1200px o más) */
+@media screen and (min-width: 1200px) {
+    #map {
+        height: 80vh;
+    }
+
+    .form-container {
+        width: 80%;
+        padding: 40px 30px;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+}
+
+/* Para dispositivos grandes en modo horizontal */
+@media screen and (min-width: 1200px) and (orientation: landscape) {
+    #map {
+        height: 70vh; /* Ajusta la altura en modo horizontal */
+    }
+
+    .form-container {
+        width: 70%;
+        padding: 50px 40px;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+}
+

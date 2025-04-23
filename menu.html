@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Reportes</title>
+    <link rel="stylesheet" href="menu.css">
+    <!-- Particles.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+</head>
+<body>
+    <!-- Fondo de luciérnagas -->
+    <div id="particles-js"></div>
+
+    <nav class="navbar">
+        <h1>Mapa de Reportes</h1>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Login</a></li>
+            <li><a href="mapa.html">🗺️ Ver Mapa</a></li>
+            <li><a href="perfil.html">👤 Mi Perfil</a></li>
+        </ul>
+    </nav>
+
+    <main class="map-container">
+        <div id="map"></div>
+    </main> 
+
+    <!-- Archivo JS para configurar Particles.js -->
+    <script>
+        // Configuración de particles.js para luciérnagas
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 50, // Número de luciérnagas (partículas)
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: "#ffff00" // Color de las luciérnagas (amarillo)
+                },
+                shape: {
+                    type: "circle", // Forma de las luciérnagas
+                    stroke: {
+                        width: 0,
+                        color: "#000000"
+                    }
+                },
+                opacity: {
+                    value: 0.8, // Mayor opacidad para que se vean brillantes
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.2,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 5, // Tamaño de las luciérnagas
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 5,
+                        size_min: 1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: false // No conectar las luciérnagas con líneas
+                },
+                move: {
+                    enable: true,
+                    speed: 1, // Velocidad de las luciérnagas
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false,
+                    attract: {
+                        enable: false
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "repulse" // Efecto de repulsión al pasar el mouse
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push" // Efecto de agregar luciérnagas al hacer clic
+                    }
+                },
+                modes: {
+                    repulse: {
+                        distance: 100,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 2 // Agregar pocas partículas al hacer clic
+                    }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
+</body>
+</html>

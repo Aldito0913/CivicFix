@@ -1,0 +1,212 @@
+/* Estilo del body */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    color: white;
+    overflow: hidden; /* Asegura que no haya barras de desplazamiento innecesarias */
+}
+
+/* Fondo de partículas */
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Asegura que las partículas estén detrás del contenido */
+    pointer-events: none; /* Permite interactuar con otros elementos sobre el fondo */
+}
+
+/* Contenedor de login */
+.login-container {
+    background: rgba(50, 50, 50, 0.8);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    text-align: center;
+    width: 90%;
+    max-width: 380px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Título del login */
+.login-container h2 {
+    color: #f0f0f0;
+    margin-bottom: 15px;
+}
+
+/* Estilo de los campos de entrada */
+.input-group {
+    margin: 15px 0;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #666;
+    background: #222;
+    color: white;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+/* Efecto al enfocar los campos de entrada */
+.input-group input:focus {
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    border-color: #bbb;
+}
+
+/* Estilo de los botones */
+.btn {
+    background: #444;
+    border: none;
+    color: white;
+    padding: 14px;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Efecto hover del botón */
+.btn:hover {
+    background: #666;
+    transform: scale(1.05);
+}
+
+/* Enlace de "Olvidaste tu contraseña?" */
+.forgot-password {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.forgot-password a {
+    color: #bbb;
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+/* Enlace de "Regístrate" */
+.signup-text {
+    margin-top: 10px;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.signup-text a {
+    color: #999;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos responsive */
+
+/* Para dispositivos pequeños (móviles y tablets en orientación vertical) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px; /* Agregar algo de margen en pantallas pequeñas */
+    }
+
+    .login-container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .btn {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .input-group input {
+        font-size: 14px;
+    }
+
+    /* Asegurar que el fondo de partículas no afecte el contenido en pantallas pequeñas */
+    #particles-js {
+        height: 100vh; /* Asegura que cubra toda la pantalla */
+    }
+}
+
+/* Para tablets en orientación horizontal y pantallas medianas */
+@media (min-width: 481px) and (max-width: 768px) {
+    .login-container {
+        width: 80%;
+        padding: 25px;
+    }
+
+    .btn {
+        font-size: 17px;
+        padding: 13px;
+    }
+
+    .input-group input {
+        font-size: 15px;
+    }
+
+    #particles-js {
+        height: 100vh;
+    }
+}
+
+/* Para laptops y pantallas grandes */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .login-container {
+        width: 60%;
+        padding: 30px;
+    }
+
+    .btn {
+        font-size: 18px;
+        padding: 14px;
+    }
+
+    .input-group input {
+        font-size: 16px;
+    }
+}
+
+/* Para pantallas más grandes (PCs de escritorio) */
+@media (min-width: 1025px) {
+    .login-container {
+        width: 40%;
+        padding: 40px;
+    }
+
+    .btn {
+        font-size: 20px;
+        padding: 16px;
+    }
+
+    .input-group input {
+        font-size: 18px;
+    }
+}

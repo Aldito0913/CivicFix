@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Reportes - El Salvador</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="mapa.css">
+</head>
+<body>
+    <!-- Título -->
+    <h1>Mapa de Reportes Ciudadanos</h1>
+
+    <!-- Mapa -->
+    <div id="map"></div>
+    
+    <!-- Botón de Regresar a la página de inicio -->
+    <button id="homeBtn">Volver al inicio</button>
+    
+    <!-- Formulario para reportar un daño -->
+    <div class="form-container">
+        <h3>Reportar un Daño</h3>
+        <input type="text" id="descripcion" placeholder="Descripción del problema" required>
+        <input type="file" id="imagen" accept="image/*">
+        <button id="reportar">Reportar</button>
+    </div>
+    
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="mapa.js"></script>
+</body>
+</html>
+   
