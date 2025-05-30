@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mapa de Reportes - El Salvador</title>
+
+  <!-- CSS de Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="mapa.css" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('Mapa.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      animation: fadeInUp 1.2s ease-out;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2em;
+      padding: 20px;
+      background: #111;
+      color: white;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    #map {
+      height: 500px;
+      width: 90%;
+      margin: 0 auto 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .form-container {
+      background: rgba(30, 30, 30, 0.9);
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      margin: 30px auto;
+      text-align: center;
+      color: white;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .form-container input,
+    .form-container button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #555;
+      background: #222;
+      color: white;
+      font-size: 16px;
+    }
+
+    #homeBtn {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 24px;
+      background: #3498db;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    #homeBtn:hover {
+      background: #2980b9;
+      transform: scale(1.05);
+    }
+
+    #transition-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: #1e1e1e;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease;
+    }
+
+    #transition-screen.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📍 Mapa de Reportes Ciudadanos</h1>
+
+  <div id="map"></div>
+
+  <button id="homeBtn">Volver al inicio</button>
+
+  <div class="form-container">
+    <h3>Reportar un Daño</h3>
+    <input type="text" id="descripcion" placeholder="Descripción del problema" required />
+    <input type="file" id="imagen" accept="image/*" />
+    <button id="reportar">Reportar</button>
+  </div>
+
+  <!-- Pantalla de transición de salida -->
+  <div id="transition-screen">Regresando al menú...</div>
+
+  <!-- JS de Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="mapa.js" defer></script>
+
+  <script>
+    document.getElementById("homeBtn").addEventListener("click", () => {
+      const screen = document.getElementById("transition-screen");
+      screen.classList.add("active");
+
+      setTimeout(() => {
+        window.location.href = "menu.html";
+      }, 3500); // puedes ajustar el tiempo
+    });
+  </script>
+</body>
+</html>
+ 

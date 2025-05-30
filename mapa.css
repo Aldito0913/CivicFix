@@ -1,0 +1,310 @@
+:root {
+  --color-bg-dark: #1c1c1c;
+  --color-bg-light: #2a2a2a;
+  --color-text: #f5f5f5;
+  --color-primary: #3498db;
+  --color-danger: #e74c3c;
+  --color-danger-dark: #c0392b;
+  --color-button-bg: #2980b9;
+  --color-button-hover: #2471a3;
+  --color-button-active: #1f6390;
+  --glass-blur: blur(7px);
+}
+
+/* ---------- BASE ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: url('Mapa.jpeg') no-repeat center top fixed;
+  background-size: cover;
+  color: var(--color-text);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  animation: fondoMovimiento 15s ease-in-out infinite;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: -1;
+}
+
+/* ---------- TÍTULO ---------- */
+h1 {
+  background-color: rgba(17, 17, 17, 0.95);
+  color: #fff;
+  padding: 24px 16px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 3px solid #ff5722;
+  box-shadow: inset 0 -6px 15px rgba(255, 87, 34, 0.25);
+  letter-spacing: 1px;
+  backdrop-filter: var(--glass-blur);
+}
+
+/* ---------- MAPA ---------- */
+#map {
+  height: 70vh;
+  width: 90%;
+  max-width: 1400px;
+  margin: 40px auto;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* ---------- FORMULARIO ---------- */
+.form-container {
+  background: rgba(30, 30, 30, 0.9);
+  padding: 30px 20px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  margin: 30px auto;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.55);
+  backdrop-filter: var(--glass-blur);
+}
+
+.form-container h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #f0f0f0;
+}
+
+/* ---------- INPUTS Y BOTONES ---------- */
+input,
+button {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 10px;
+  font-size: 16px;
+  border: 1px solid #444;
+  background-color: var(--color-bg-dark);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+input[type="text"],
+input[type="file"] {
+  background-color: var(--color-bg-light);
+}
+
+input:focus,
+button:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.6);
+}
+
+button {
+  background-color: var(--color-danger);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--color-danger-dark);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* ---------- BOTÓN VOLVER ---------- */
+#homeBtn {
+  width: 180px;
+  margin: 20px auto 30px;
+  background-color: var(--color-button-bg);
+  display: block;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 12px 20px;
+}
+
+#homeBtn:hover {
+  background-color: var(--color-button-hover);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+#homeBtn:active {
+  background-color: var(--color-button-active);
+}
+
+/* ---------- POPUP ESTILO ---------- */
+.leaflet-popup-content {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #111;
+  line-height: 1.6;
+  padding-right: 6px;
+}
+
+.leaflet-popup-content img {
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  margin-top: 8px;
+  max-width: 100%;
+}
+
+/* ---------- TRANSICIÓN ELEGANTE ---------- */
+#transition-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #1e1e1e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+#transition-screen.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ---------- LOADER CÍRCULO ---------- */
+#transition-screen.active .spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1.1s linear infinite;
+}
+
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ---------- ANIMACIONES ---------- */
+@keyframes fondoMovimiento {
+  0%, 100% { background-position: center top; }
+  50% { background-position: center 60px; }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media screen and (max-width: 768px) {
+  h1 { font-size: 24px; }
+  #map { height: 60vh; }
+  .form-container { padding: 20px; }
+}
+
+@media screen and (max-width: 480px) {
+  h1 { font-size: 22px; }
+  .form-container { width: 95%; padding: 15px; }
+  #map { height: 50vh; }
+}
+
+@media screen and (min-width: 1200px) {
+  #map { height: 80vh; }
+  .form-container { width: 80%; padding: 40px 30px; }
+  h1 { font-size: 36px; }
+}
+
+button#reportar {
+  background: linear-gradient(135deg, #e74c3c, #ff6f61);
+  color: #fff;
+  font-weight: bold;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 4px 14px rgba(231, 76, 60, 0.4);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+button#reportar:hover {
+  background: linear-gradient(135deg, #ff6f61, #e74c3c);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+}
+
+button#reportar:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(231, 76, 60, 0.5);
+}
+
+#homeBtn {
+  width: 220px;
+  margin: 20px auto 30px;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #fff;
+  background: linear-gradient(135deg, #2980b9, #3498db);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(41, 128, 185, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#homeBtn::before {
+  content: "↩️";
+  font-size: 18px;
+  animation: wiggle 1.8s infinite;
+}
+
+#homeBtn:hover {
+  background: linear-gradient(135deg, #2471a3, #2980b9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(41, 128, 185, 0.5);
+}
+
+#homeBtn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 6px rgba(41, 128, 185, 0.5);
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(8deg); }
+  75% { transform: rotate(-8deg); }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  #map {
+    height: 65vh;
+  }
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
