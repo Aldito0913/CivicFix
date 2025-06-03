@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Perfil</title>
+  <link rel="stylesheet" href="perfil.css" />
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+      background-color: #1e1e1e;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1e1e1e, #2c3e50);
+      z-index: -1;
+    }
+
+    .profile-container {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+      position: relative; 
+      z-index: 1;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .profile-picture img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      color: #ccc;
+      gap: 10px;
+    }
+
+    .profile-info h2 {
+      margin: 0;
+      font-size: 1.8em;
+      color: white;
+    }
+
+    .file-input-container {
+      margin-top: 10px;
+    }
+
+    .custom-file-upload {
+      display: inline-block;
+      background-color: #444;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: bold;
+    }
+
+    .custom-file-upload:hover {
+      background-color: #666;
+    }
+
+    .custom-file-upload input[type="file"] {
+      display: none;
+    }
+
+    .profile-actions {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .action-btn, .back-btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #333;
+      color: #fff;
+      transition: background 0.3s ease;
+      font-size: 1em;
+    }
+
+    .action-btn:hover, .back-btn:hover {
+      background-color: #555;
+    }
+
+    .edit-form {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: scaleY(0.9);
+      transform-origin: top;
+      transition: all 0.4s ease-in-out;
+      background-color: #2a2a2a;
+      border-radius: 12px;
+      margin-top: 30px;
+    }
+
+    .edit-form.active {
+      max-height: 600px;
+      opacity: 1;
+      transform: scaleY(1);
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+
+    .edit-form h3 {
+      color: #ffffff;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .edit-form label {
+      color: #ddd;
+      display: block;
+      margin-top: 15px;
+    }
+
+    .edit-form input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: none;
+      background: #444;
+      color: white;
+    }
+
+    .submit-btn, .cancel-btn {
+      margin-top: 20px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background-color: #4CAF50;
+      color: white;
+      margin-right: 10px;
+    }
+
+    .cancel-btn {
+      background-color: #d9534f;
+      color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .profile-header {
+        flex-direction: column;
+      }
+
+      .profile-actions {
+        justify-content: center;
+      }
+
+      .action-btn, .back-btn {
+        width: 100%;
+        max-width: 300px;
+        font-size: 0.95em;
+      }
+
+      .profile-picture img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .edit-form input {
+        font-size: 0.95em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-container {
+        padding: 20px 15px;
+      }
+
+      .profile-info h2 {
+        font-size: 1.4em;
+      }
+
+      .edit-form {
+        padding: 15px;
+      }
+
+      .submit-btn, .cancel-btn {
+        width: 100%;
+        padding: 12px;
+      }
+
+      .custom-file-upload {
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+<div class="profile-container fadeInUpSoft">
+
+    <div class="profile-header">
+      <div class="profile-picture">
+        <img src="default-avatar.png" alt="Foto de Perfil" id="profileImg">
+      </div>
+
+      <div class="profile-info">
+        <h2 id="username">Cargando...</h2>
+        <p id="email">Cargando correo...</p>
+        <p id="role">Ciudadano</p>
+
+        <div class="file-input-container">
+          <label class="custom-file-upload">
+            <input type="file" id="newProfileImgMain" accept="image/*" />
+            📸 Cambiar Foto de Perfil
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <button id="editProfileBtn" class="action-btn">Editar Perfil</button>
+      <button id="logoutBtn" class="action-btn">Cerrar Sesión</button>
+      <button id="backToMenuBtn" class="back-btn">Volver al Menú</button>
+    </div>
+
+    <div class="edit-form" id="editForm">
+      <h3>Editar Perfil</h3>
+      <form id="editProfileForm">
+        <label for="newName">Nombre:</label>
+        <input type="text" id="newName" required />
+
+        <label for="newEmail">Correo:</label>
+        <input type="email" id="newEmail" required />
+
+        <label for="newPassword">Nueva Contraseña:</label>
+        <input type="password" id="newPassword" />
+
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+          <button type="submit" class="submit-btn">Guardar Cambios</button>
+          <button type="button" id="cancelEditBtn" class="cancel-btn">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script src="perfil.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 150, density: { enable: true, value_area: 800 }},
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.6, random: true, anim: { enable: true, speed: 1 }},
+        size: { value: 3, random: true, anim: { enable: true, speed: 1.5 }},
+        line_linked: { enable: false },
+        move: {
+          enable: true,
+          speed: 0.5,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out"
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: false },
+          resize: true
+        }
+      },
+      retina_detect: true
+    });
+
+    document.getElementById('backToMenuBtn').addEventListener('click', () => {
+      window.location.href = "menu.html";
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem("activeUser");
+      window.location.href = "index.html";
+    });
+
+    document.getElementById('newProfileImgMain').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        document.getElementById('profileImg').src = e.target.result;
+      }
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html> 

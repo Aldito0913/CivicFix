@@ -1,0 +1,187 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    color: white;
+    overflow: hidden; /* Evita barras de desplazamiento */
+}
+
+/* Fondo de partículas */
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none; /* Permite interactuar con el contenido */
+}
+
+/* Contenedor de registro */
+.register-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    width: 90%;
+    max-width: 450px; /* Aumentar el tamaño máximo para pantallas más grandes */
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Título del registro */
+.register-container h2 {
+    margin-bottom: 15px;
+}
+
+/* Estilo de los campos de entrada */
+.input-group {
+    margin: 10px 0;
+}
+
+.input-group input {
+    width: 100%; /* Asegura que los campos ocupen todo el ancho disponible */
+    padding: 15px; /* Aumentar el padding para hacer los campos más grandes */
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: 0.3s;
+    box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
+}
+
+/* Estilo de los placeholders */
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Efecto al enfocar los campos de entrada */
+.input-group input:focus {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.6); /* Rojo en el enfoque */
+}
+
+/* Estilo de los botones */
+.btn {
+    background: #3b3b3b;
+    border: none;
+    color: white;
+    padding: 15px; /* Aumentar el padding para mayor área de clic */
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    font-size: 16px;
+}
+
+/* Efecto hover del botón */
+.btn:hover {
+    background: #ff0000; /* Rojo puro en el hover */
+    transform: scale(1.05);
+}
+
+/* Enlace de "Iniciar sesión" */
+.login-text {
+    margin-top: 10px;
+    color: white;
+    font-size: 14px;
+}
+
+.login-text a {
+    color: #ff0000; /* Rojo puro en el enlace */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-text a:hover {
+    text-decoration: underline;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos responsive */
+
+/* Para pantallas más grandes como laptops y escritorios */
+@media (min-width: 768px) {
+    .register-container {
+        width: 80%; /* Mantener un tamaño adecuado en pantallas grandes */
+        padding: 30px;
+    }
+
+    .btn {
+        font-size: 18px;
+        padding: 20px;
+    }
+
+    .input-group input {
+        font-size: 18px;
+        padding: 18px;
+    }
+}
+
+/* Para pantallas pequeñas (smartphones y tablets) */
+@media (max-width: 768px) {
+    .register-container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .btn {
+        font-size: 16px;
+        padding: 15px;
+    }
+
+    .input-group input {
+        font-size: 16px;
+        padding: 15px;
+    }
+}
+
+/* Para pantallas muy pequeñas (teléfonos de pantallas pequeñas) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px; /* Agregar algo de margen en pantallas pequeñas */
+    }
+
+    .register-container {
+        width: 100%; /* Hacer que ocupe todo el ancho disponible */
+        padding: 15px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .input-group input {
+        font-size: 14px;
+        padding: 12px; /* Ajustar padding en pantallas pequeñas */
+    }
+}
+
+/* Estilos para el fondo de partículas rojas (particles.js) */
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Fondo de partículas detrás de todo */
+    pointer-events: none; /* Permite interacción con otros elementos */
+}

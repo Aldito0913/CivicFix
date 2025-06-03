@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapa de Reportes</title>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e1e1e, #2b2b2b);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    nav.navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(0, 0, 0, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: slideDown 1s ease forwards;
+      flex-wrap: wrap;
+    }
+
+    .navbar h1 {
+      color: #ff4747;
+      font-size: 28px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 10px rgba(255, 71, 71, 0.7);
+      opacity: 0;
+      animation: fadeIn 1.5s ease forwards 0.3s;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #f1f1f1;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(-10px);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .nav-links a:nth-child(1) { animation-delay: 0.5s; }
+    .nav-links a:nth-child(2) { animation-delay: 0.7s; }
+    .nav-links a:nth-child(3) { animation-delay: 0.9s; }
+
+    .nav-links a:hover {
+      background-color: #ffeb3b;
+      color: #1e1e1e;
+      transform: scale(1.1);
+      box-shadow: 0 0 12px rgba(255, 235, 59, 0.6);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .menu-toggle span {
+      width: 26px;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+    }
+
+    .map-container {
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #map {
+      width: 90%;
+      height: 80vh;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .easter-egg {
+      position: fixed;
+      width: 80px;
+      left: 20px;
+      top: 80px;
+      display: none;
+      z-index: 9999;
+      cursor: grab;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .easter-egg img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+    }
+
+    #bubble {
+      position: absolute;
+      top: -40px;
+      left: 100%;
+      background: #fff;
+      color: #000;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      display: none;
+      white-space: nowrap;
+    }
+
+    #miau-bubble {
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(to right, #fffacd, #fff);
+      color: #222;
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 10000;
+      display: none;
+      animation: bounceIn 0.4s ease;
+    }
+
+    #mobile-cat-trigger {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #ffeb3b;
+      color: white;
+      padding: 10px;
+      border-radius: 12px;
+      z-index: 9999;
+      display: none;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    @keyframes bounceIn {
+      0% {opacity: 0; transform: translateX(-50%) translateY(-10px) scale(0.8);}
+      50% {opacity: 1; transform: translateX(-50%) translateY(2px) scale(1.05);}
+      100% {transform: translateX(-50%) translateY(0) scale(1);}
+    }
+
+    body.replay-animations .nav-links a {
+      opacity: 0;
+      transform: translateY(-10px);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    body.replay-animations .nav-links a:nth-child(1) { animation-delay: 0.5s; }
+    body.replay-animations .nav-links a:nth-child(2) { animation-delay: 0.7s; }
+    body.replay-animations .nav-links a:nth-child(3) { animation-delay: 0.9s; }
+
+    body.replay-animations .navbar h1 {
+      opacity: 0;
+      animation: fadeIn 1.5s ease forwards 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 20px;
+        gap: 15px;
+        margin-top: 10px;
+        border-radius: 8px;
+        width: 100%;
+      }
+      .nav-links.active { display: flex; }
+      nav.navbar { flex-direction: column; align-items: flex-start; }
+      .navbar h1 { font-size: 22px; }
+      #map { height: 60vh; }
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <nav class="navbar">
+    <h1>📍 Mapa de Reportes</h1>
+    <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">🏠 Login</a>
+      <a href="mapa.html">🗺️ Ver Mapa</a>
+      <a href="perfil.html">👤 Mi Perfil</a>
+    </div>
+  </nav>
+  <main class="map-container">
+    <div id="map"></div>
+  </main>
+  <div class="easter-egg" id="sherlock-egg">
+    <img src="cat.jpg" alt="Gato Sherlock" draggable="false" />
+    <div id="miau-bubble">¡Miau! 🕵️‍♂️</div>
+    <div id="bubble">¡Miau! 🕵️‍♂️</div>
+  </div>
+  <button id="mobile-cat-trigger">🐾</button>
+  <script>
+    if (performance.navigation.type === 2 || sessionStorage.getItem("cameBack")) {
+      document.body.classList.add("replay-animations");
+      sessionStorage.removeItem("cameBack");
+    }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        sessionStorage.setItem("cameBack", "true");
+      });
+    });
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 50, density: { enable: true, value_area: 800 } },
+        color: { value: "#ffff00" },
+        shape: { type: "circle" },
+        opacity: { value: 0.8, random: true },
+        size: { value: 5, random: true },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 1, random: true }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" }
+        },
+        modes: {
+          repulse: { distance: 100 },
+          push: { particles_nb: 4 }
+        }
+      },
+      retina_detect: true
+    });
+    const egg = document.getElementById("sherlock-egg");
+    const bubble = document.getElementById("bubble");
+    const miauBubble = document.getElementById("miau-bubble");
+    const btn = document.getElementById("mobile-cat-trigger");
+
+    function showCatWithMiau() {
+      egg.style.display = "block";
+      moveEggRandomly();
+      miauBubble.style.display = "block";
+      setTimeout(() => miauBubble.style.display = "none", 1500);
+    }
+
+    function moveEggRandomly() {
+      const maxX = window.innerWidth - egg.offsetWidth - 20;
+      const maxY = window.innerHeight - egg.offsetHeight - 20;
+      const newX = Math.random() * maxX;
+      const newY = Math.random() * maxY;
+      egg.style.left = `${newX}px`;
+      egg.style.top = `${newY}px`;
+    }
+
+    document.addEventListener("keydown", e => {
+      if (e.ctrlKey && e.key.toLowerCase() === 'x') {
+        showCatWithMiau();
+        btn.style.display = "none";
+      }
+    });
+
+    if (/Mobi|Android/i.test(navigator.userAgent) || window.innerWidth <= 1024) {
+      btn.style.display = "block";
+      btn.addEventListener("click", () => {
+        showCatWithMiau();
+        btn.style.display = "none";
+      });
+    }
+
+    setInterval(moveEggRandomly, 3000);
+
+    let isDragging = false, offsetX = 0, offsetY = 0;
+    egg.addEventListener("mousedown", e => {
+      isDragging = true;
+      offsetX = e.clientX - egg.getBoundingClientRect().left;
+      offsetY = e.clientY - egg.getBoundingClientRect().top;
+    });
+    document.addEventListener("mousemove", e => {
+      if (isDragging) {
+        egg.style.left = `${e.clientX - offsetX}px`;
+        egg.style.top = `${e.clientY - offsetY}px`;
+      }
+    });
+    document.addEventListener("mouseup", () => isDragging = false);
+    egg.addEventListener("touchstart", e => {
+      const touch = e.touches[0];
+      isDragging = true;
+      offsetX = touch.clientX - egg.getBoundingClientRect().left;
+      offsetY = touch.clientY - egg.getBoundingClientRect().top;
+    });
+    document.addEventListener("touchmove", e => {
+      if (isDragging && e.touches.length === 1) {
+        const touch = e.touches[0];
+        egg.style.left = `${touch.clientX - offsetX}px`;
+        egg.style.top = `${touch.clientY - offsetY}px`;
+      }
+    });
+    document.addEventListener("touchend", () => isDragging = false);
+  </script>
+</body>
+</html>
